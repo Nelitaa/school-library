@@ -1,12 +1,12 @@
 require_relative './nameable'
-require_relative './rental'
 require_relative './capitalize_decorator'
-require_relavitve './trimmer_decorator'
+require_relative './trimmer_decorator'
+require_relative './rental'
 
 class Person < Nameable
   attr_reader :id
   attr_accessor :name, :age, :rentals
-  
+
   def initialize(age, name = 'Unknown', parent_permission: true)
     super()
     @id = Random.rand(1..1000)
