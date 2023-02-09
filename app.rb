@@ -5,7 +5,8 @@ require_relative 'teacher'
 require_relative 'rental'
 
 class App
-  def initialize
+  def initialize(menu)
+    @menu = menu
     @books = []
     @people = []
     @rentals = []
@@ -15,12 +16,14 @@ class App
     @books.each do |book|
       puts "Title: #{book.title}, Author: #{book.author}"
     end
+    @menu.list_options
   end
 
   def list_all_people
     @people.each do |person|
       puts "[#{person.class}] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
     end
+    @menu.list_options
   end
 
   def create_person
@@ -34,6 +37,7 @@ class App
     else
       puts 'Invalid Option'
     end
+    @menu.list_options
   end
 
   def create_student
@@ -70,6 +74,7 @@ class App
     book = Book.new(title, author)
     @books.push(book)
     puts 'Book created successfully'
+    @menu.list_options
   end
 
   def create_rental
@@ -90,6 +95,7 @@ class App
     rental = Rental.new(date, @books[book_index], @people[person_index])
     @rentals.push(rental)
     puts 'Rental created successfully'
+    @menu.list_options
   end
 
   def list_all_rentals_person
@@ -99,9 +105,10 @@ class App
     @rentals.each do |rental|
       puts "Date: #{rental.date}, Book '#{rental.book.title}' by #{rental.book.author}" if rental.person.id == id
     end
+    @menu.list_options
+  end
+
+  def exit_app
+    puts 'Thank you for using the app!'
   end
 end
-
-
-
-
