@@ -1,6 +1,7 @@
 require_relative 'book'
 require_relative 'person'
 require_relative 'student'
+require_relative 'teacher'
 
 class App
   def initialize
@@ -57,6 +58,16 @@ class App
     teacher = Teacher.new(age, specialization, name)
     @people.push(teacher)
     puts 'Person created successfully'
+  end
+
+  def create_book
+    print 'Title:'
+    title = gets.chomp
+    print 'Author:'
+    author = gets.chomp
+    book = Book.new(title, author)
+    @books.push(book)
+    puts 'Book created successfully'
   end
 
 
