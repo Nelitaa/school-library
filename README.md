@@ -20,9 +20,9 @@
 
 Imagine that you are the librarian of OOP University, and you need a tool to record what books are in the library and who borrows them. The app that you will create will allow you to:
 
--Add new students or teachers.
--Add new books.
--Save records of who borrowed a given book and when.
+- Add new students or teachers.
+- Add new books.
+- Save records of who borrowed a given book and when.
 
 ## 🛠 Built With <a name="built-with"></a>
 
@@ -77,7 +77,7 @@ Install this project with:
 To run the project, execute the following command:
 
 ```sh
-    ruby person.rb
+    main
 ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -94,9 +94,9 @@ To run the project, execute the following command:
 
 ## 🔭 Future Features <a name="future-features"></a>
 
-- [ ] **[use_the_"Decorator"_design_pattern]**
-- [ ] **[set_up_associations]**
-- [ ] **[add_basic_UI]**
+- [ ] **[refactor_your_code]**
+- [ ] **[preserve_data]**
+- [ ] **[unit_tests]**
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
