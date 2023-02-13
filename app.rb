@@ -1,8 +1,8 @@
-require_relative 'book'
-require_relative 'person'
-require_relative 'student'
-require_relative 'teacher'
-require_relative 'rental'
+require_relative "book"
+require_relative "person"
+require_relative "student"
+require_relative "teacher"
+require_relative "rental"
 
 class App
   def initialize(menu)
@@ -16,9 +16,7 @@ class App
     if @books.empty?
       puts "There are no books!\n "
     else
-      @books.each do |book|
-        puts "Title: #{book.title}, Author: #{book.author}"
-      end
+      @books.each { |book| puts "Title: '#{book.title}', Author: #{book.author}" }
     end
     puts "End of list.\n "
     @menu.list_options
@@ -28,21 +26,19 @@ class App
     if @people.empty?
       puts "There are no people!\n "
     else
-      @people.each do |person|
-        puts "[#{person.class}] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
-      end
+      @people.each { |person| puts "[#{person.class}] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}" }
     end
     puts "End of list.\n "
     @menu.list_options
   end
 
   def create_person
-    puts 'Do you want to create a student(1) or a teacher(2)? [Input the number]:'
-    person = gets.chomp
+    puts "Do you want to create a student(1) or a teacher(2)? [Input the number]:"
+    person = gets.chomp.to_i
     case person
-    when '1'
+    when 1
       create_student
-    when '2'
+    when 2
       create_teacher
     else
       puts "Invalid Option!\n "
@@ -51,13 +47,13 @@ class App
   end
 
   def create_student
-    print 'Age: '
+    print "Age: "
     age = gets.chomp.to_i
-    print 'Name: '
+    print "Name: "
     name = gets.chomp
-    print 'Has parent permission? [Y/N]: '
+    print "Has parent permission? [Y/N]: "
     parent_permission = gets.chomp
-    print 'Classroom: '
+    print "Classroom: "
     classroom = gets.chomp
     student = Student.new(classroom, age, name: name, parent_permission: parent_permission)
     @people.push(student)
@@ -65,11 +61,11 @@ class App
   end
 
   def create_teacher
-    print 'Age: '
+    print "Age: "
     age = gets.chomp.to_i
-    print 'Name: '
+    print "Name: "
     name = gets.chomp
-    print 'Specialization: '
+    print "Specialization: "
     specialization = gets.chomp
     teacher = Teacher.new(specialization, age, name: name)
     @people.push(teacher)
@@ -77,9 +73,9 @@ class App
   end
 
   def create_book
-    print 'Title: '
+    print "Title: "
     title = gets.chomp
-    print 'Author: '
+    print "Author: "
     author = gets.chomp
     book = Book.new(title, author)
     @books.push(book)
@@ -88,17 +84,13 @@ class App
   end
 
   def create_rental
-    puts 'Select a book from the following list by number:'
-    @books.each_with_index do |book, index|
-      puts "#{index}) Title: #{book.title}, Author: #{book.author}"
-    end
+    puts "Select a book from the following list by number:"
+    @books.each_with_index { |book, index| puts "#{index}) Title: #{book.title}, Author: #{book.author}" }
     book_index = gets.chomp.to_i
-    puts 'Select a person from the following list by number (not id):'
-    @people.each_with_index do |person, index|
-      puts "#{index}) [#{person.class}] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
-    end
+    puts "Select a person from the following list by number (not id):"
+    @people.each_with_index { |person, index| puts "#{index}) [#{person.class}] Name: #{person.name}, ID: #{person.id}, Age: #{person.age} " }
     person_index = gets.chomp.to_i
-    print 'Date: '
+    print "Date: "
     date = gets.chomp
     rental = Rental.new(date, @books[book_index], @people[person_index])
     @rentals.push(rental)
@@ -107,12 +99,10 @@ class App
   end
 
   def list_all_rentals_person
-    print 'ID of person: '
+    print "ID of person: "
     id = gets.chomp.to_i
-    puts 'Rentals:'
-    @rentals.each do |rental|
-      puts "Date: #{rental.date}, Book: '#{rental.book.title}' by #{rental.book.author}" if rental.person.id == id
-    end
+    puts "Rentals:"
+    @rentals.each { |rental| puts "Date: #{rental.date}, Book: '#{rental.book.title}' by #{rental.book.author}, Person: [#{rental.person.class}] Name: #{rental.person.name}, ID: #{rental.person.id}, Age: #{rental.person.age}" if rental.person.id == id }
     puts "End of list.\n "
     @menu.list_options
   end
