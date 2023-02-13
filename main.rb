@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-require_relative 'app'
+require_relative "app"
 
 class Menu
   def initialize
@@ -17,22 +17,32 @@ class Menu
       5 - Create a rental.
       6 - List all rentals for a given person id.
       7 - Exit application."
-    option = gets.chomp
-    select_option(option)
+    option = gets.chomp.to_i
+    if (1..7).include?(option)
+      select_option(option)
+    else
+      puts "Invalid option. Please choose a number between 1 and 7.\n "
+      list_options
+    end
   end
 
   def select_option(option)
-    list = {
-      '1' => :list_all_books,
-      '2' => :list_all_people,
-      '3' => :create_person,
-      '4' => :create_book,
-      '5' => :create_rental,
-      '6' => :list_all_rentals_person,
-      '7' => :exit_app
-    }
-    name_option = list[option]
-    @app.send(name_option)
+    case option
+    when 1
+      @app.list_all_books
+    when 2
+      @app.list_all_people
+    when 3
+      @app.create_person
+    when 4
+      @app.create_book
+    when 5
+      @app.create_rental
+    when 6
+      @app.list_all_rentals_person
+    when 7
+      puts "Thank you for using this app!\n "
+    end
   end
 end
 

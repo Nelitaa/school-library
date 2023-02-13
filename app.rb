@@ -116,8 +116,4 @@ class App
     puts "End of list.\n "
     @menu.list_options
   end
-
-  def exit_app
-    puts 'Thank you for using the app!'
-  end
 end
