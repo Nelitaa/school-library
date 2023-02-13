@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-require_relative "app"
+require_relative 'app'
 
 class Menu
   def initialize
@@ -27,22 +27,17 @@ class Menu
   end
 
   def select_option(option)
-    case option
-    when 1
-      @app.list_all_books
-    when 2
-      @app.list_all_people
-    when 3
-      @app.create_person
-    when 4
-      @app.create_book
-    when 5
-      @app.create_rental
-    when 6
-      @app.list_all_rentals_person
-    when 7
-      puts "Thank you for using this app!\n "
-    end
+    options = {
+      1 => @app.method(:list_all_books),
+      2 => @app.method(:list_all_people),
+      3 => @app.method(:create_person),
+      4 => @app.method(:create_book),
+      5 => @app.method(:create_rental),
+      6 => @app.method(:list_all_rentals_person),
+      7 => proc { puts "Thank you for using this app!\n " }
+    }
+    action = options[option] || raise("Invalid option: #{option}")
+    action.call
   end
 end
 
