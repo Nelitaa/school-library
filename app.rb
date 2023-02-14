@@ -1,34 +1,39 @@
-require_relative 'book'
+require_relative 'book_manager'
 require_relative 'person'
+require_relative 'person_manager'
 require_relative 'student'
 require_relative 'teacher'
 require_relative 'rental'
+require_relative 'rental_manager'
 
 class App
   def initialize(menu)
     @menu = menu
-    @books = []
-    @people = []
-    @rentals = []
+    @books = BookManager.new
+    @people = PersonManager.new
+  end
+
+  def select_option(option)
+    options = {
+      1 => @app.method(:list_all_books),
+      2 => @app.method(:list_all_people),
+      3 => @app.method(:create_person),
+      4 => @app.method(:create_book),
+      5 => @app.method(:create_rental),
+      6 => @app.method(:list_all_rentals_person),
+      7 => proc { puts "Thank you for using this app!\n " }
+    }
+    action = options[option] || raise("Invalid option: #{option}")
+    action.call
   end
 
   def list_all_books
-    if @books.empty?
-      puts "There are no books!\n "
-    else
-      @books.each { |book| puts "Title: '#{book.title}', Author: #{book.author}" }
-    end
-    puts "End of list.\n "
+    @books.list_books
     @menu.list_options
   end
 
   def list_all_people
-    if @people.empty?
-      puts "There are no people!\n "
-    else
-      @people.each { |person| puts "[#{person.class}] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}" }
-    end
-    puts "End of list.\n "
+    @people.list_people
     @menu.list_options
   end
 
@@ -73,13 +78,7 @@ class App
   end
 
   def create_book
-    print 'Title: '
-    title = gets.chomp
-    print 'Author: '
-    author = gets.chomp
-    book = Book.new(title, author)
-    @books.push(book)
-    puts "\nBook created successfully.\n"
+    @books.add_book
     @menu.list_options
   end
 
