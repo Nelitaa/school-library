@@ -16,9 +16,7 @@ class App
     if @books.empty?
       puts "There are no books!\n "
     else
-      @books.each do |book|
-        puts "Title: #{book.title}, Author: #{book.author}"
-      end
+      @books.each { |book| puts "Title: '#{book.title}', Author: #{book.author}" }
     end
     puts "End of list.\n "
     @menu.list_options
@@ -28,9 +26,7 @@ class App
     if @people.empty?
       puts "There are no people!\n "
     else
-      @people.each do |person|
-        puts "[#{person.class}] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
-      end
+      @people.each { |person| puts "[#{person.class}] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}" }
     end
     puts "End of list.\n "
     @menu.list_options
@@ -38,11 +34,11 @@ class App
 
   def create_person
     puts 'Do you want to create a student(1) or a teacher(2)? [Input the number]:'
-    person = gets.chomp
+    person = gets.chomp.to_i
     case person
-    when '1'
+    when 1
       create_student
-    when '2'
+    when 2
       create_teacher
     else
       puts "Invalid Option!\n "
@@ -89,13 +85,11 @@ class App
 
   def create_rental
     puts 'Select a book from the following list by number:'
-    @books.each_with_index do |book, index|
-      puts "#{index}) Title: #{book.title}, Author: #{book.author}"
-    end
+    @books.each_with_index { |book, index| puts "#{index}) Title: #{book.title}, Author: #{book.author}" }
     book_index = gets.chomp.to_i
     puts 'Select a person from the following list by number (not id):'
     @people.each_with_index do |person, index|
-      puts "#{index}) [#{person.class}] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
+      puts "#{index}) [#{person.class}] Name: #{person.name}, ID: #{person.id}, Age: #{person.age} "
     end
     person_index = gets.chomp.to_i
     print 'Date: '
@@ -115,9 +109,5 @@ class App
     end
     puts "End of list.\n "
     @menu.list_options
-  end
-
-  def exit_app
-    puts 'Thank you for using the app!'
   end
 end
