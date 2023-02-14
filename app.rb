@@ -9,7 +9,13 @@ class App
   def initialize(menu)
     @menu = menu
     @books = Storage.load('books').map { |book| Book.new(book['title'], book['author']) }
-    @people = Storage.load('People')
+    @people = Storage.load('people').map do |people|
+      if people['class_name'] == 'Teacher'
+        Teacher.new(*people.values_at('specialization', 'age', 'name', 'parent_permission'))
+      else
+        Student.new(*people.values_at('classroom', 'age', 'name', 'parent_permission'))
+      end
+    end
     @rentals = Storage.load('rentals')
   end
 
