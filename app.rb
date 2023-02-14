@@ -8,8 +8,8 @@ require_relative 'storage'
 class App
   def initialize(menu)
     @menu = menu
-    @books = Storage.load('books')
-    @people = Storage.load('people')
+    @books = Storage.load('books').map { |book| Book.new(book['title'], book['author']) }
+    @people = Storage.load('People')
     @rentals = Storage.load('rentals')
   end
 
