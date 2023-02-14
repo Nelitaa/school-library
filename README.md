@@ -90,6 +90,12 @@ To run the project, execute the following command:
 - Twitter: [@twitterhandle](https://twitter.com/MarianelaMunoz_)
 - LinkedIn: [LinkedIn](https://www.linkedin.com/in/marianela-munoz/)
 
+👤 **Youssef KERROUM**
+
+- GitHub: [@githubhandle](https://github.com/YKerroum)
+- Twitter: [@twitterhandle](https://twitter.com/kerroum_youssef)
+- LinkedIn: [LinkedIn](https://www.linkedin.com/in/ykerroum/)
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## 🔭 Future Features <a name="future-features"></a>
