@@ -3,6 +3,7 @@ require_relative 'person'
 require_relative 'student'
 require_relative 'teacher'
 require_relative 'rental'
+require_relative 'storage'
 
 class App
   def initialize(menu)
@@ -109,5 +110,13 @@ class App
     end
     puts "End of list.\n "
     @menu.list_options
+  end
+
+  def exit_app
+    puts 'Thank you for using this app!'
+    Storage.save('books', @books)
+    Storage.save('people', @people)
+    Storage.save('rentals', @rentals)
+    exit
   end
 end
