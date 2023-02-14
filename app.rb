@@ -8,9 +8,9 @@ require_relative 'storage'
 class App
   def initialize(menu)
     @menu = menu
-    @books = []
-    @people = []
-    @rentals = []
+    @books = Storage.load('books')
+    @people = Storage.load('people')
+    @rentals = Storage.load('rentals')
   end
 
   def list_all_books
