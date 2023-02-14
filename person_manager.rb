@@ -3,6 +3,8 @@ require_relative 'student'
 require_relative 'teacher'
 
 class PersonManager
+  attr_accessor :people
+
   def initialize
     @people = []
   end
@@ -51,7 +53,18 @@ class PersonManager
       puts "There are no people!\n "
     else
       @people.each { |person| puts "[#{person.class}] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}" }
+      puts "End of list!\n "
     end
-    puts "End of list.\n "
+  end
+
+  def list_person_by_index
+    if @people.empty?
+      puts "There are no people!\n "
+    else
+      @people.each_with_index do |person, index|
+        puts "#{index}) [#{person.class}] Name: #{person.name} ID: #{person.id}"
+      end
+      puts "End of list!\n "
+    end
   end
 end

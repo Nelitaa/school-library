@@ -19,25 +19,11 @@ class Menu
       7 - Exit application."
     option = gets.chomp.to_i
     if (1..7).include?(option)
-      select_option(option)
+      @app.select_option(option)
     else
       puts "Invalid option. Please choose a number between 1 and 7.\n "
-      list_options
     end
-  end
-
-  def select_option(option)
-    options = {
-      1 => @app.method(:list_all_books),
-      2 => @app.method(:list_all_people),
-      3 => @app.method(:create_person),
-      4 => @app.method(:create_book),
-      5 => @app.method(:create_rental),
-      6 => @app.method(:list_all_rentals_person),
-      7 => proc { puts "Thank you for using this app!\n " }
-    }
-    action = options[option] || raise("Invalid option: #{option}")
-    action.call
+    list_options unless option == 7
   end
 end
 

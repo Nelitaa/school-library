@@ -22,8 +22,8 @@ class Menu
       @app.select_option(option)
     else
       puts "Invalid option. Please choose a number between 1 and 7.\n "
-      list_options
     end
+    list_options unless option == 7
   end
 end
 
