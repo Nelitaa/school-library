@@ -4,16 +4,19 @@ require_relative 'trimmer_decorator'
 require_relative 'rental'
 
 class Person < Nameable
-  attr_reader :id
-  attr_accessor :name, :age, :rentals
+  attr_accessor :name, :age, :rentals, :id
 
-  def initialize(age, name: 'Unknown', parent_permission: true)
+  def initialize(id, age, name = 'Unknown', parent_permission = 'Y')
     super()
-    @id = Random.rand(1..1000)
+    @id = id
     @name = name
     @age = age
     @parent_permission = parent_permission
     @rentals = []
+
+    return unless @id.nil?
+
+    @id = Random.rand(1..1000)
   end
 
   private

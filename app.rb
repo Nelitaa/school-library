@@ -8,21 +8,9 @@ require_relative 'storage'
 class App
   def initialize(menu)
     @menu = menu
-    @books = Storage.load('books').map { |book| Book.new(*book.values_at('title', 'author')) }
-    @people = Storage.load('people').map do |people|
-      if people['class_name'] == 'Teacher'
-        Teacher.new(people['specialization'], people['age'], name: people['name'],
-                                                             parent_permission: people['parent_permission'])
-      else
-        Student.new(people['classroom'], people['age'], name: people['name'],
-                                                        parent_permission: people['parent_permission'])
-      end
-    end
-    @rentals = Storage.load('rentals').map do |rental|
-      Rental.new(rental['date'],
-                 @books.find { |book| book.title == rental['book']['title'] },
-                 @people.find { |person| person.id == rental['person']['id']})
-    end
+    @books = Storage.load('books')
+    @people = Storage.load('people')
+    @rentals = Storage.load('rentals')
   end
 
   def list_all_books
@@ -66,10 +54,9 @@ class App
     name = gets.chomp
     print 'Has parent permission? [Y/N]: '
     parent_permission = gets.chomp
-    parent_permission = parent_permission == 'Y'
     print 'Classroom: '
     classroom = gets.chomp
-    student = Student.new(classroom, age, name: name, parent_permission: parent_permission)
+    student = Student.new(nil, classroom, age, name: name, parent_permission: parent_permission)
     @people.push(student)
     puts "\nPerson created successfully.\n "
   end
@@ -81,7 +68,7 @@ class App
     name = gets.chomp
     print 'Specialization: '
     specialization = gets.chomp
-    teacher = Teacher.new(specialization, age, name: name)
+    teacher = Teacher.new(nil, specialization, age, name: name)
     @people.push(teacher)
     puts "\nPerson created successfully.\n "
   end

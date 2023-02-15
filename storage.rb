@@ -2,8 +2,7 @@ require 'json'
 
 class Storage
   def self.save(name, object)
-    objects = object.map(&:to_json)
-    File.write("#{name}.json", JSON.generate(objects))
+    File.write("#{name}.json", JSON.generate(object))
   end
 
   def self.load(name)
