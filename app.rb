@@ -11,13 +11,17 @@ class App
     @books = Storage.load('books').map { |book| Book.new(*book.values_at('title', 'author')) }
     @people = Storage.load('people').map do |people|
       if people['class_name'] == 'Teacher'
-        Teacher.new(people['specialization'], people['age'], name: people['name'], parent_permission: people['parent_permission'])
+        Teacher.new(people['specialization'], people['age'], name: people['name'],
+                                                             parent_permission: people['parent_permission'])
       else
-        Student.new(people['classroom'], people['age'], name: people['name'], parent_permission: people['parent_permission'])
+        Student.new(people['classroom'], people['age'], name: people['name'],
+                                                        parent_permission: people['parent_permission'])
       end
     end
     @rentals = Storage.load('rentals').map do |rental|
-      Rental.new(rental['date'], @books.find { |book| book.title == rental['book_title'] }, @people.find { |person| person.id == rental['person_id'] })
+      Rental.new(rental['date'],
+                 @books.find { |book| book.title == rental['book']['title'] },
+                 @people.find { |person| person.id == rental['person']['id']})
     end
   end
 
@@ -62,6 +66,7 @@ class App
     name = gets.chomp
     print 'Has parent permission? [Y/N]: '
     parent_permission = gets.chomp
+    parent_permission = parent_permission == 'Y'
     print 'Classroom: '
     classroom = gets.chomp
     student = Student.new(classroom, age, name: name, parent_permission: parent_permission)
