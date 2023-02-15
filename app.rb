@@ -11,16 +11,14 @@ class App
     @books = Storage.load('books').map { |book| Book.new(*book.values_at('title', 'author')) }
     @people = Storage.load('people').map do |people|
       if people['class_name'] == 'Teacher'
-        Teacher.new(people['specialization'],
-                    people['age'], name: people['name'],
-                                   parent_permission: people['parent_permission'])
+        Teacher.new(people['specialization'], people['age'], name: people['name'], parent_permission: people['parent_permission'])
       else
-        Student.new(people['classroom'],
-                    people['age'], name: people['name'],
-                                   parent_permission: people['parent_permission'])
+        Student.new(people['classroom'], people['age'], name: people['name'], parent_permission: people['parent_permission'])
       end
     end
-    @rentals = Storage.load('rentals')
+    @rentals = Storage.load('rentals').map do |rental|
+      Rental.new(rental['date'], @books.find { |book| book.title == rental['book_title'] }, @people.find { |person| person.id == rental['person_id'] })
+    end
   end
 
   def list_all_books
