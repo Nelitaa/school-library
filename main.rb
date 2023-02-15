@@ -34,7 +34,7 @@ class Menu
       4 => @app.method(:create_book),
       5 => @app.method(:create_rental),
       6 => @app.method(:list_all_rentals_person),
-      7 => proc { puts "Thank you for using this app!\n " }
+      7 => @app.method(:exit_app)
     }
     action = options[option] || raise("Invalid option: #{option}")
     action.call

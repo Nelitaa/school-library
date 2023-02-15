@@ -3,13 +3,14 @@ require_relative 'person'
 require_relative 'student'
 require_relative 'teacher'
 require_relative 'rental'
+require_relative 'storage'
 
 class App
   def initialize(menu)
     @menu = menu
-    @books = []
-    @people = []
-    @rentals = []
+    @books = Storage.load('books')
+    @people = Storage.load('people')
+    @rentals = Storage.load('rentals')
   end
 
   def list_all_books
@@ -55,7 +56,7 @@ class App
     parent_permission = gets.chomp
     print 'Classroom: '
     classroom = gets.chomp
-    student = Student.new(classroom, age, name: name, parent_permission: parent_permission)
+    student = Student.new(nil, classroom, age, name: name, parent_permission: parent_permission)
     @people.push(student)
     puts "\nPerson created successfully.\n "
   end
@@ -67,7 +68,7 @@ class App
     name = gets.chomp
     print 'Specialization: '
     specialization = gets.chomp
-    teacher = Teacher.new(specialization, age, name: name)
+    teacher = Teacher.new(nil, specialization, age, name: name)
     @people.push(teacher)
     puts "\nPerson created successfully.\n "
   end
@@ -109,5 +110,13 @@ class App
     end
     puts "End of list.\n "
     @menu.list_options
+  end
+
+  def exit_app
+    puts 'Thank you for using this app!'
+    Storage.save('books', @books)
+    Storage.save('people', @people)
+    Storage.save('rentals', @rentals)
+    exit
   end
 end
